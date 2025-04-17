@@ -10,7 +10,7 @@ Symbol information is persisted in the x64dbg program database on exit.
 2. Run `GoReSym` against your target exe, saving output to a JSON file.
 3. Run this script:
     ```
-    python goresym_x64dbg.py target.exe resym.json <path_to_x64dbg.exe>
+    python goresym_x64dbg.py target.exe resym.json [--x64dbg-path path_to/x64dbg.exe]
     ```
 4. The script will automatically apply symbol information from the provided JSON file 🎉
 
