@@ -15,10 +15,6 @@ app = typer.Typer(name="GoReSym x(64|32)dbg",
                   help="Add GoReSym symbols to an x(64|32)dbg debug session.")
 
 
-def goresym_addr_to_rva(pe: pefile.PE, address: int) -> int:
-    return address - pe.OPTIONAL_HEADER.ImageBase + pe.OPTIONAL_HEADER.BaseOfCode
-
-
 def main(
     target_exe: str = typer.Argument(..., help="Path to the target executable."),
     syms_json_file: str = typer.Argument(..., help="Path to the symbols JSON file."),
@@ -61,13 +57,13 @@ def main(
     mod_base, _ = client.eval_sync('mod.main()')
     print(f'Adding {len(syms_json["UserFunctions"] or [])} user functions...')
     for sym in syms_json["UserFunctions"] or []:
-        rva = goresym_addr_to_rva(target_pe, sym["Start"])
+        rva = sym["Start"] - target_pe.OPTIONAL_HEADER.ImageBase
         addr = mod_base + rva
         client.set_label_at(addr, sym["FullName"])
 
     print(f'Adding {len(syms_json["StdFunctions"] or [])} std functions...')
     for sym in syms_json["StdFunctions"] or []:
-        rva = goresym_addr_to_rva(target_pe, sym["Start"])
+        rva = sym["Start"] - target_pe.OPTIONAL_HEADER.ImageBase
         addr = mod_base + rva
         client.set_label_at(addr, sym["FullName"])
 
