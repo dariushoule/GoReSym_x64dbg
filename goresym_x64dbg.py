@@ -37,7 +37,7 @@ def main(
                                  "please install it before using this script.")
 
     print(f"Loading {target_exe}...")
-    client = X64DbgClient(r"C:\re\x64dbg_dev\release\x64\x64dbg.exe")
+    client = X64DbgClient(str(dbg_path))
     client.start_session(target_exe)
 
     # try to negotiate text encoding, this varies when terminal redirection is used to save JSON
