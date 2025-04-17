@@ -45,7 +45,7 @@ def main(
         syms_json = f.read()
     if syms_json.startswith(b"\xff\xfe"):
         syms_json = syms_json.decode("utf-16-le")
-    elif '\0' in syms_json:
+    elif b'\0' in syms_json:
         syms_json = syms_json.decode("utf-16")
     else:
         syms_json = syms_json.decode("utf-8")
