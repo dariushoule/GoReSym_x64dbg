@@ -8,8 +8,9 @@ Symbol information is persisted in the x64dbg program database on exit.
 
 1. Install `x64dbg_automate` and `GoReSym`.
 2. Run `GoReSym` against your target exe, saving output to a JSON file.
-3. Run this script:
+3. Install requirements and run this script:
     ```
+    python -m pip install -r requirements.txt
     python goresym_x64dbg.py target.exe resym.json [--x64dbg-path path_to/x64dbg.exe]
     ```
 4. The script will automatically apply symbol information from the provided JSON file 🎉
